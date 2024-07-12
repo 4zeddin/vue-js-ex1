@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vue JS</title>
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div id="app">
+
+    <!-- Section Panier -->
+    <div class="cart">
+      <table>
+        <thead>
+          <tr>
+            <th colspan="2">Votre commande</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <!-- J'ai utilisé Computed Properties pour la concaténation du titre -->
+            <td>{{ titre }}</td> 
+            <td>{{ nbrProduct }}</td>
+          </tr>
+          <tr>
+            <td>Code Promo</td>
+            <td class="code-promo">
+              <input placeholder="Ajouter un code promo" v-model="promo" />
+            </td>
+          </tr>
+          <tr>
+            <td>Total à payer</td>
+            <td>
+              <div v-if="promo === 'royale'">
+                (-3€) <span class="sale">{{ totalPrice - 3 }} €</span>
+              </div>
+              <div v-else>{{ totalPrice }} €</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Section Produit -->
+    <div class="product-section">
+
+      <!-- Image du produit -->
+      <div class="product-image">
+        <img :src="image" alt="Product Image" id="a-Image" @mouseover="updateImage(image)">
+      </div>
+
+      <!-- Description du produit -->
+      <div class="product-description">
+        <h1>{{ title }}</h1>
+        <p v-if="notAvailable">Momentanément indisponible</p>
+
+        <p v-if="sale" class="sale">
+          <span style="text-decoration: line-through;">{{ price }} € </span>
+          <span class="new-price">{{ price - 5 }} € PROMOTION</span>
+        </p>
+        <p v-else class="price">
+          <span>{{ price }} €</span>
+        </p>
+
+        <br />
+        <strong>Ingrédients</strong>
+        <div>
+          <ul>
+            <li v-for="ingredient in ingredients" :key="ingredient">{{ ingredient }}</li>
+          </ul>
+        </div>
+        <br />
+        <div class="sauces">
+          <strong>Sauces au choix</strong>
+          <ul>
+            <li v-for="sauce in sauces" :key="sauce.id" @mouseover="updateImage(sauce.image)">
+              {{ sauce.type }}
+            </li>
+          </ul>
+        </div>
+        <div>
+          <strong>Valeurs nutritionnelles pour 100 grammes</strong>
+          <ul>
+            <li v-for="(value, key) in energy" :key="key">{{ key }}: {{ value }}</li>
+          </ul>
+        </div>
+
+        <!-- Bouton d'ajout au panier -->
+        <button @click="addProduct">Ajouter à ma commande</button>
+        <br /><br />
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="app.js"></script>
+
+</body>
+
+
+</html>
