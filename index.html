@@ -59,11 +59,11 @@
         <p v-if="notAvailable">Momentanément indisponible</p>
 
         <p v-if="sale" class="sale">
-          <span style="text-decoration: line-through;">{{ price }} € </span>
-          <span class="new-price">{{ price - 5 }} € PROMOTION</span>
+          <span style="text-decoration: line-through; padding-right:6px;">{{ price }} € </span>
+          <span class="new-price">{{ price - 5 }}€ PROMOTION</span>
         </p>
         <p v-else class="price">
-          <span>{{ price }} €</span>
+          <span>{{ price }}€</span>
         </p>
 
         <br />
